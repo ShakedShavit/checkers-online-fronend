@@ -1,0 +1,60 @@
+$margin-top-lobby: 50px;
+$lobby-border-radius: 25px;
+
+.lobby-container {
+    min-height: calc(100vh - #{$header-height} - #{$margin-top-lobby});
+    margin-top: $margin-top-lobby;
+    margin: $margin-top-lobby 10% 0 10%;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: $lobby-border-radius;
+
+    >span {
+        display: block;
+        margin: 10px;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .lobby__player-info {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 20% 20% 60%;
+        border-radius: $lobby-border-radius;
+        background: linear-gradient(to left, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin-bottom: 15px;
+
+        .rank-circle {
+            margin: auto;
+        }
+        >span {
+            margin: auto;
+            font-size: 1.4rem;
+            margin-bottom: 0.7rem;
+        }
+        >button {
+            width: 60%;
+            justify-self: flex-end;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5));
+            border-radius: $lobby-border-radius;
+            color: rgb(248, 248, 248);
+            font-size: 1.1rem;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            
+            &:hover {
+                font-size: 1.2rem;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+            }
+        }
+
+        &:hover {
+            transform: scale(1.03);
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+        }
+    }
+
+    .match-invite-loader-container {
+    }
+}

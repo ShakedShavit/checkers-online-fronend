@@ -1,0 +1,50 @@
+.board-square {
+    width: 10vh;
+    max-width: 10vw;
+    height: 10vh;
+    max-height: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-over__square {
+    opacity: 0.5;
+}
+
+.white-square {
+    background: white;
+}
+.black-square {
+    background: burlywood;
+}
+
+.green-option {
+    background: rgba(32, 70, 32, 0.945);
+    opacity: 0.3;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.game-piece {
+    width: 72%;
+    height: 72%;
+    border-radius: 50%;
+}
+
+.piece-hover {
+    &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
+}
+
+.black-piece {
+    background: black;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.red-piece {
+    background: rgb(204, 74, 14);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}

@@ -1,0 +1,21 @@
+.game-board {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    position: relative;
+    
+    width: 80vh;
+    max-width: 80vw;
+}
+
+.second-player__board {
+    transform: rotate(180deg);
+}
+
+.game-state-banner {
+    font-size: 1.2rem;
+    background: purple;
+    color: white;
+    width: 100vw;
+    height: 5vh;
+}
