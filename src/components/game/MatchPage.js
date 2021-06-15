@@ -6,6 +6,7 @@ import socket from '../../server/socketio';
 import GameBoard from './board/Board';
 import PlayerBanner from './board/PlayerBanner';
 import QuitButton from './QuitButton';
+import GameStateBanner from './board/GameStateBanner';
 
 const MatchPage = () => {
     const { userDataState } = useContext(LoginContext);
@@ -20,6 +21,7 @@ const MatchPage = () => {
     const [isMyTurn, setIsMyTurn] = useState(false);
     const [isSetupProcessDone, setIsSetupProcessDone] = useState(false);
     const [isGameOver, setIsGameOver] = useState(false);
+    const [gameStateString, setGameStateString] = useState('');
 
     useEffect(() => {
         // Verifies user
@@ -50,17 +52,20 @@ const MatchPage = () => {
         });
     }
 
-    // const player1 = location.state.player1;
-    // const player2 = location.state.player2;
-    // const isFirstPlayer = player1.userId === userDataState.user._id;
-
     return (
         !!isSetupProcessDone &&
-        <div>
-            <PlayerBanner
-                username={player2.username}
-                rank={player2.rank}
-            />
+        <div className="match-page">
+            <div className="player-banners-container">
+                <PlayerBanner
+                    username={player2.username}
+                    rank={player2.rank}
+                />
+                <span>vs</span>
+                <PlayerBanner
+                    username={player1.username}
+                    rank={player1.rank}
+                />
+            </div>
 
             <GameBoard
                 isMyTurn={isMyTurn}
@@ -68,20 +73,20 @@ const MatchPage = () => {
                 isFirstPlayer={isFirstPlayer}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                gameStateString={gameStateString}
+                setGameStateString={setGameStateString}
             />
 
-            <PlayerBanner
-                username={player1.username}
-                rank={player1.rank}
-            />
-
-            {
-                !!gameState && !gameState.isWinBool && !gameState.isTieBool &&
-                <QuitButton
-                    hasGameStarted={true}
-                    quitFunc={quitMatch}
-                />
-            }
+            <div className="match-footer">
+                <GameStateBanner gameState={gameStateString} isStartingPlayer={isMyTurn} />
+                {
+                    !!gameState && !gameState.isWinBool && !gameState.isTieBool &&
+                    <QuitButton
+                        hasGameStarted={true}
+                        quitFunc={quitMatch}
+                    />
+                }
+            </div>
         </div>
     )
 };

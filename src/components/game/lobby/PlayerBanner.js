@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Loader from '../../main/Loader';
 import RankCircle from '../../main/RankCircle';
+import NameTag from '../../main/NameTag';
 import QuitButton from '../QuitButton';
 
 function PlayerBanner(props) {
@@ -17,7 +18,7 @@ function PlayerBanner(props) {
 
     return (
         <div className="lobby__player-info">
-            <span>{props.player.username}</span>
+            <NameTag username={props.player.username} />
             <RankCircle rank={props.player.rank} />
             { props.player.isInMatch ?
                 <span disabled>In a Match</span> :

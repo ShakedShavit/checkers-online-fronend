@@ -1,0 +1,45 @@
+$margin-top-lobby: 50px;
+$lobby-border-radius: 25px;
+
+.lobby-container {
+    min-height: calc(100vh - #{$header-height} - #{$margin-top-lobby});
+    margin-top: $margin-top-lobby;
+    margin: $margin-top-lobby 10% 0 10%;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: $lobby-border-radius;
+
+    >span {
+        display: block;
+        margin: 10px;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .match-invite-loader-container {
+        >button {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 9rem;
+            height: 2.5rem;
+            border-top-left-radius: $lobby-border-radius;
+            border-bottom-right-radius: $lobby-border-radius;
+            &:hover {
+                color: white;
+                background: black;
+            }
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .lobby-container {
+        .match-invite-loader-container {
+            >button {
+                width: 6rem;
+            }
+        }
+    }
+}

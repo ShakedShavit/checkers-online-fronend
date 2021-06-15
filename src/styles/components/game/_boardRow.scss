@@ -1,4 +1,6 @@
 .board-row {
+    width: 100%;
+    height: calc(100% / 8);
     display: flex;
     flex-direction: row;
 }

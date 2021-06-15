@@ -1,0 +1,15 @@
+.name-tag {
+    padding: $standard-tag-padding 1.5rem;
+    font-size: 1.3rem;
+    color: #fff;
+    text-shadow:
+      0 0 21px #fff,
+      0 0 20px #fff,
+      0 0 21px #fff,
+      0 0 42px #f09,
+      0 0 82px #f09,
+      0 0 92px #f09,
+      0 0 102px #f09,
+      0 0 151px #f09;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}

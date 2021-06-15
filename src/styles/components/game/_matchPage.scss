@@ -1,0 +1,49 @@
+.match-page {
+    background: linear-gradient(115deg, rgba(88,71,63,1) 6%, rgba(135,130,114,1) 69%, rgb(178, 161, 202) 100%);
+    
+    .player-banners-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        height: $match-players-banners-height;
+        // background: linear-gradient(90deg, rgba(47,33,26,1) 0%, rgba(125,54,10,1) 27%, rgba(238,186,10,1) 100%);
+        margin-bottom: $match-players-banners-bottom-margin;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+        >span {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+    }
+}
+
+.match-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: $match-game-state-banner-height;
+    margin-top: $match-state-banner-top-margin;
+    padding: 0 0 0 1rem;
+    background: linear-gradient(90deg, rgba(47,33,26,1) 6%, rgba(106,10,125,1) 69%, rgba(112,10,238,1) 100%);
+
+    .game-state-banner {
+        font-size: 2rem;
+        color: white;
+    }
+
+    >button {
+        height: 100%;
+        padding: 0 25px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-weight: 500;
+
+        &:hover {
+            box-shadow: none;
+        }
+    }
+}

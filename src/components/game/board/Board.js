@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import BoardRow from './BoardRow';
-// import { CheckersLogic } from '../../../game/checkersLogic2';
-import GameStateBanner from './GameStateBanner';
 import socket from '../../../server/socketio';
 import { GameContext } from '../../../context/gameContext';
 import { movePlayedAction, startGameAction } from '../../../actions/gameActions';
@@ -16,7 +14,6 @@ const GameBoard = (props) => {
     const [rowsBoard, setRowsBoard] = useState([]);
     const [squaresClassListsArray, setSquareClassListsArray] = useState([]);
     const [didInitialRenderOccur, setDidInitialRenderOccur] = useState(false);
-    const [gameStateString, setGameStateString] = useState('');
     const [boardClassList, setBoardClassList] = useState('');
     const [isFirstTurnOfMatch, setIsFirstTurnOfMatch] = useState(true);
     const [hasOpponentQuit, setHasOpponentQuit] = useState(false);
@@ -50,11 +47,11 @@ const GameBoard = (props) => {
             dispatchGameState(movePlayedAction(newSquareObjectsBoard, isWin, isTie));
             
             if (isWin) {
-                setGameStateString('Opponent Won!');
+                props.setGameStateString('Opponent Won!');
                 return;
             }
             if (isTie) {
-                setGameStateString('Its a Tie');
+                props.setGameStateString('Its a Tie');
                 return;
             }
             props.setIsMyTurn(true);
@@ -97,7 +94,7 @@ const GameBoard = (props) => {
     }, [squaresClassListsArray])
 
     useEffect(() => {
-        props.isMyTurn ? setGameStateString('My turn') : setGameStateString("Opponent's turn");
+        props.isMyTurn ? props.setGameStateString('My turn') : props.setGameStateString("Opponent's turn");
 
         if (isFirstTurnOfMatch) {
             setIsFirstTurnOfMatch(false);
@@ -105,12 +102,12 @@ const GameBoard = (props) => {
         }
 
         if (props.isMyTurn) {
-            if (gameState.isWinBool) setGameStateString('Opponent Won!');
-            if (gameState.isTieBool) setGameStateString('Its a Tie');
+            if (gameState.isWinBool) props.setGameStateString('Opponent Won!');
+            if (gameState.isTieBool) props.setGameStateString('Its a Tie');
             return;
         }
 
-        if (gameState.isWinBool) setGameStateString('Victory!');
+        if (gameState.isWinBool) props.setGameStateString('Victory!');
 
         // Send move to opponent
         socket.emit('movePlayed', { squareObjectsBoard: gameState.squareObjectsBoard, isWin: gameState.isWinBool, isTie: gameState.isTieBool });
@@ -172,27 +169,27 @@ const GameBoard = (props) => {
 
     return (
         <div>
-            <div className={boardClassList}>
-            {
-                rowsBoard.map((row, index) =>
-                    <BoardRow
-                        key={index}
-                        renderBoard={renderBoard}
-                        renderSquare={renderSquare}
-                        getSquareClassList={getSquareClassList}
-                        rowIndex={index}
-                        squaresClassListsArray={squaresClassListsArray}
-                        isMyTurn={props.isMyTurn}
-                        setIsMyTurn={props.setIsMyTurn}
-                    />
-                )
-            }
+            <div className="resize__board-container">
+                <div className={boardClassList}>
+                {
+                    rowsBoard.map((row, index) =>
+                        <BoardRow
+                            key={index}
+                            renderBoard={renderBoard}
+                            renderSquare={renderSquare}
+                            getSquareClassList={getSquareClassList}
+                            rowIndex={index}
+                            squaresClassListsArray={squaresClassListsArray}
+                            isMyTurn={props.isMyTurn}
+                            setIsMyTurn={props.setIsMyTurn}
+                        />
+                    )
+                }
 
-            { props.isGameOver && <GameOverMessage message={gameStateString} isFirstPlayer={props.isFirstPlayer} />}
-            { hasOpponentQuit && <GameOverMessage message={'Opponent quit, you win'} isFirstPlayer={props.isFirstPlayer} />}
+                { props.isGameOver && <GameOverMessage message={props.gameStateString} isFirstPlayer={props.isFirstPlayer} />}
+                { hasOpponentQuit && <GameOverMessage message={'Opponent quit, you win'} isFirstPlayer={props.isFirstPlayer} />}
+                </div>
             </div>
-
-            <GameStateBanner gameState={gameStateString} isStartingPlayer={props.isMyTurn} />
         </div>
     )
 };

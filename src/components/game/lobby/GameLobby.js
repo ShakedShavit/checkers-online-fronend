@@ -33,7 +33,6 @@ const GameLobby = () => {
         // Player entering lobby
         socket.on('playerJoiningLobby', (joiningPlayers) => {
             if (joiningPlayers.some(player => player.socketId === socket.id)) return;
-            console.log(playersOnline, ...joiningPlayers);
             setPlayerOnline([ ...playersOnline, ...joiningPlayers ]);
         });
     }, [playersOnline]);
@@ -46,6 +45,7 @@ const GameLobby = () => {
         }));
 
         socket.on('getRankedLobby', (players) => {
+            console.log("🚀 ~ file: GameLobby.js ~ line 63 ~ socket.on ~ players", players)
             setPlayerOnline([...players]);
         });
     
