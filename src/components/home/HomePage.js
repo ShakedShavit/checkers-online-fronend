@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { LoginContext } from '../../context/loginContext';
-import GameLobby from '../game/GameLobby';
+import GameLobby from '../game/lobby/GameLobby';
 import Header from '../main/Header';
 
 const HomePage = () => {

@@ -1,5 +1,4 @@
 import { CheckersLogic } from '../game/checkersLogic2';
-import lodashClonedeep from 'lodash.clonedeep';
 
 export const initialGameState = null;
 

@@ -18,6 +18,7 @@ $lobby-border-radius: 25px;
     }
 
     .lobby__player-info {
+        position: relative;
         width: 100%;
         display: grid;
         grid-template-columns: 20% 20% 60%;
@@ -50,11 +51,23 @@ $lobby-border-radius: 25px;
         }
 
         &:hover {
-            transform: scale(1.03);
             box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
         }
     }
 
     .match-invite-loader-container {
+        >button {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 9rem;
+            height: 2.5rem;
+            border-top-left-radius: $lobby-border-radius;
+            border-bottom-right-radius: $lobby-border-radius;
+            &:hover {
+                color: white;
+                background: black;
+            }
+        }
     }
 }

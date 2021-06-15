@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { LoginContext } from '../../context/loginContext';
-import socket from '../../server/socketio';
-import Loader from '../main/Loader';
-import QuitButton from './QuitButton';
-import Modal from '../main/Modal';
-import { updateRankAction } from '../../actions/loginActions';
-import RankCircle from '../main/RankCircle';
+import { LoginContext } from '../../../context/loginContext';
+import socket from '../../../server/socketio';
+import Modal from '../../main/Modal';
+import { updateRankAction } from '../../../actions/loginActions';
+import PlayerBanner from './PlayerBanner';
+import Notification from '../../main/Notification';
 
 const GameLobby = () => {
     const { userDataState, dispatchUserData } = useContext(LoginContext);
@@ -19,6 +18,7 @@ const GameLobby = () => {
     const [invitingPlayer, setInvitingPlayer] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [hasOpponentQuit, setHasOpponentQuit] = useState(false);
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
     useEffect(() => {
         socket.off('playerLeavingLobby');
@@ -26,13 +26,15 @@ const GameLobby = () => {
 
         // Player leaving lobby
         socket.on('playerLeavingLobby', (leavingPlayersId) => {
+            if (leavingPlayersId.includes(socket.id)) return;
             setPlayerOnline(playersOnline.filter(player => !leavingPlayersId.includes(player.socketId)));
         });
 
         // Player entering lobby
-        socket.on('playerJoiningLobby', (joiningPlayer) => {
-            console.log(playersOnline, joiningPlayer);
-            setPlayerOnline([ ...playersOnline, joiningPlayer ]);
+        socket.on('playerJoiningLobby', (joiningPlayers) => {
+            if (joiningPlayers.some(player => player.socketId === socket.id)) return;
+            console.log(playersOnline, ...joiningPlayers);
+            setPlayerOnline([ ...playersOnline, ...joiningPlayers ]);
         });
     }, [playersOnline]);
 
@@ -110,8 +112,16 @@ const GameLobby = () => {
         socket.emit('acceptMatchInvite');
     }
 
-    const declineMatch = () => {
-        socket.emit('declineMatch');
+    // const declineMatch = () => {
+    //     socket.emit('declineMatch');
+    //     setIsWaitingForMatch(false);
+    //     setIsInvitedForMatch(false);
+    //     setIsLoading(false);
+    //     setInvitingPlayer({});
+    // }
+
+    const quitOrDeclineInvite = () => {
+        socket.emit('quitMatch');
         setIsWaitingForMatch(false);
         setIsInvitedForMatch(false);
         setIsLoading(false);
@@ -120,6 +130,8 @@ const GameLobby = () => {
 
     useEffect(() => {
         if (!hasOpponentQuit) return;
+
+        setIsNotificationOpen(true);
 
         let opponentQuitMsgTimeOut = setTimeout(() => {
             setHasOpponentQuit(false);
@@ -133,28 +145,19 @@ const GameLobby = () => {
     // player.isInMatch is not dynamic, remove it or add the socket events
     return (
         <div className="lobby-container">
-            <div className="match-invite-loader-container">
-                { isLoading && <Loader classList="match-invite-loader" /> }
-                { hasOpponentQuit && <div>Opponent Quit</div> }
-                { isWaitingForMatch && !isInvitedForMatch &&
-                    <QuitButton
-                        quitFunc={declineMatch}
-                        hasGameStarted={false}
-                    />
-                }
-            </div>
-            
             { playersOnline.map(player => {
                 if (player.userId === userDataState.user._id) return;
                 return (
-                    <div key={player.userId} className="lobby__player-info">
-                        <span>{player.username}</span>
-                        <RankCircle rank={player.rank} />
-                        { player.isInMatch ?
-                            <span disabled>In a Match</span> :
-                            <button onClick={() => {invitePlayerForMatchOnClick(player.socketId)}} disabled={isWaitingForMatch}>Invite</button>
-                        }
-                    </div>
+                    <PlayerBanner
+                        key={player.socketId}
+                        player={player}
+                        invitePlayerForMatchOnClick={invitePlayerForMatchOnClick}
+                        isWaitingForMatch={isWaitingForMatch}
+                        isLoading={isLoading}
+                        hasOpponentQuit={hasOpponentQuit}
+                        isInvitedForMatch={isInvitedForMatch}
+                        quitInvite={quitOrDeclineInvite}
+                    />
                 )
             })}
 
@@ -168,10 +171,14 @@ const GameLobby = () => {
                     setIsModalOpen={setIsInvitedForMatch}
                     mainText={`Do you want to play against ${invitingPlayer.username}? ${invitingPlayer.username}'s rank is ${invitingPlayer.rank}`}
                     confirmFunc={acceptMatchInvite}
-                    closeModalFunc={declineMatch}
+                    closeModalFunc={quitOrDeclineInvite}
                     confirmText={"Let's Duel"}
                     closeModalText={'Return to Lobby'}
                 />
+            }
+
+            { isNotificationOpen &&
+                <Notification text={'Opponent Quit'} setIsNotificationOpen={setIsNotificationOpen} />
             }
         </div>
     )

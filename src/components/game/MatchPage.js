@@ -22,16 +22,6 @@ const MatchPage = () => {
     const [isGameOver, setIsGameOver] = useState(false);
 
     useEffect(() => {
-        return () => {
-            // Emit event for leaving match (maybe it's because im not saving user_data_state on cookies for testing)
-            // if (!isGameOver) return;
-            // The quitting func (instead of sending quitFunc to the quit button)
-            
-            // socket.emit('quitMatch');
-        }
-    }, []); // Where's the array mate?
-
-    useEffect(() => {
         // Verifies user
         if (!userDataState.user) return history.push("/home");
 
@@ -52,7 +42,6 @@ const MatchPage = () => {
     }, [player1]);
 
     const quitMatch = () => {
-        console.log('sdas');
         socket.emit('quitMatch');
 
         socket.on('quittingProcessDone', () => {
