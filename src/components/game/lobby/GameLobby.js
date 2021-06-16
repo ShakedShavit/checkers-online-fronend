@@ -12,7 +12,7 @@ const GameLobby = () => {
 
     const history = useHistory();
 
-    const [playersOnline, setPlayerOnline] = useState([]);
+    const [playersOnline, setPlayersOnline] = useState([]);
     const [isWaitingForMatch, setIsWaitingForMatch] = useState(false);
     const [isInvitedForMatch, setIsInvitedForMatch] = useState(false);
     const [invitingPlayer, setInvitingPlayer] = useState({});
@@ -23,17 +23,27 @@ const GameLobby = () => {
     useEffect(() => {
         socket.off('playerLeavingLobby');
         socket.off('playerJoiningLobby');
+        socket.off('playerRankChanged');
 
         // Player leaving lobby
         socket.on('playerLeavingLobby', (leavingPlayersId) => {
             if (leavingPlayersId.includes(socket.id)) return;
-            setPlayerOnline(playersOnline.filter(player => !leavingPlayersId.includes(player.socketId)));
+            setPlayersOnline(playersOnline.filter(player => !leavingPlayersId.includes(player.socketId)));
         });
 
         // Player entering lobby
         socket.on('playerJoiningLobby', (joiningPlayers) => {
             if (joiningPlayers.some(player => player.socketId === socket.id)) return;
-            setPlayerOnline([ ...playersOnline, ...joiningPlayers ]);
+            setPlayersOnline([ ...playersOnline, ...joiningPlayers ]);
+        });
+
+         // Player in lobby rank has changed
+         socket.on('playerRankChanged', ({ userId, newRank }) => {
+            let playersOnlineHolder = playersOnline.map(player => {
+                if (player.userId !== userId) return player;
+                return { ...player, rank: newRank };
+            })
+            setPlayersOnline(playersOnlineHolder);
         });
     }, [playersOnline]);
 
@@ -45,8 +55,7 @@ const GameLobby = () => {
         }));
 
         socket.on('getRankedLobby', (players) => {
-            console.log("🚀 ~ file: GameLobby.js ~ line 63 ~ socket.on ~ players", players)
-            setPlayerOnline([...players]);
+            setPlayersOnline([...players]);
         });
     
         // Invited to match
@@ -83,15 +92,6 @@ const GameLobby = () => {
             
             dispatchUserData(updateRankAction(rank));
         });
-
-        // Player in lobby rank has changed
-        socket.on('playerRankChanged', ({ userId, newRank }) => {
-            let playersOnlineHolder = playersOnline.map(player => {
-                if (player.userId !== userId) return player;
-                return { ...player, rank: newRank };
-            })
-            setPlayerOnline(playersOnlineHolder);
-        })
     
         return () => { socket.off('matchInvitationAccepted') }
     }, []);
