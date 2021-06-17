@@ -1,0 +1,52 @@
+$home-page-border-radius: 10px;
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+
+    .video-container {
+        width: 70%;
+        margin: 30px auto;
+        .image-container {
+            display: none;
+        }
+    }
+}
+
+.home-page-video {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    border-radius: 10px;
+;
+}
+
+@media (max-width: 768px) {
+    .home-page {
+        .video-container {
+            margin: 10px auto;
+
+            >video {
+                display: none;
+            }
+            .image-container {
+                display: block;
+                >h1 {
+                    width: 90%;
+                    color: rgb(5, 95, 27);
+                    padding: 10px;
+                    margin: 40px 0 0;
+                    border-radius: 10px;
+                    box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px;
+                }
+                >img {
+                    margin: 40px 0 10px;
+                    max-width: 100%;
+                    max-height: 100vh;
+                    border-radius: 10px;
+;
+                    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+                }
+            }
+        }
+    }
+}

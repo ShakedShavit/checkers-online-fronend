@@ -28,12 +28,12 @@ const GameLobby = () => {
         // Player leaving lobby
         socket.on('playerLeavingLobby', (leavingPlayersId) => {
             if (leavingPlayersId.includes(socket.id)) return;
-            setPlayersOnline(playersOnline.filter(player => !leavingPlayersId.includes(player.socketId)));
+            setPlayersOnline(playersOnline.filter(player => !leavingPlayersId.includes(player.id)));
         });
 
         // Player entering lobby
         socket.on('playerJoiningLobby', (joiningPlayers) => {
-            if (joiningPlayers.some(player => player.socketId === socket.id)) return;
+            if (joiningPlayers.some(player => player.id === socket.id)) return;
             setPlayersOnline([ ...playersOnline, ...joiningPlayers ]);
         });
 
@@ -99,6 +99,7 @@ const GameLobby = () => {
     const invitePlayerForMatchOnClick = (invitedPlayerSocketId) => {
         setIsWaitingForMatch(true);
         setIsLoading(true);
+        console.log(invitedPlayerSocketId);
         socket.emit('inviteForMatch', {
             invitedPlayerSocketId,
             invitingPlayer: {
@@ -111,14 +112,6 @@ const GameLobby = () => {
     const acceptMatchInvite = () => {
         socket.emit('acceptMatchInvite');
     }
-
-    // const declineMatch = () => {
-    //     socket.emit('declineMatch');
-    //     setIsWaitingForMatch(false);
-    //     setIsInvitedForMatch(false);
-    //     setIsLoading(false);
-    //     setInvitingPlayer({});
-    // }
 
     const quitOrDeclineInvite = () => {
         socket.emit('quitMatch');
@@ -147,9 +140,10 @@ const GameLobby = () => {
         <div className="lobby-container">
             { playersOnline.map(player => {
                 if (player.userId === userDataState.user._id) return;
+                console.log(player);
                 return (
                     <PlayerBanner
-                        key={player.socketId}
+                        key={player.id}
                         player={player}
                         invitePlayerForMatchOnClick={invitePlayerForMatchOnClick}
                         isWaitingForMatch={isWaitingForMatch}

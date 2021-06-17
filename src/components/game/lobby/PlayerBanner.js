@@ -13,8 +13,10 @@ function PlayerBanner(props) {
 
     const inviteOnClick = () => {
         setIsInvitingPlayer(true);
-        props.invitePlayerForMatchOnClick(props.player.socketId)
+        props.invitePlayerForMatchOnClick(props.player.id)
     }
+
+    console.log(props.player);
 
     return (
         <div className="lobby__player-info">

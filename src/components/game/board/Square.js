@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { GameContext } from '../../../context/gameContext';
+import kingIcon from '../../../images/crown.png';
 
 const Square = (props) => {
-    const { gameState, dispatchGameState } = useContext(GameContext);
+    const { gameState } = useContext(GameContext);
 
     const rowIndex = props.rowIndex;
     const columnIndex = props.columnIndex;
@@ -33,9 +34,19 @@ const Square = (props) => {
     return (
         (doesSquareContainPiece || isSquareAMovingOption) ?
         <div className='board-square black-square' onClick={squareOnClick}>
-            <div className={squareClassList}></div>
+            <div className={squareClassList}>
+            {
+                squareClassList.includes("king-piece") &&
+                <img src={kingIcon} alt="king-icon"></img>
+            }
+            </div>
         </div> :
-        <div className={squareClassList} onClick={squareOnClick}></div>
+        <div className={squareClassList} onClick={squareOnClick}>
+        {
+            squareClassList.includes("king-piece") &&
+            <img src={kingIcon} alt="king-icon"></img>
+        }
+        </div>
     )
 };
 

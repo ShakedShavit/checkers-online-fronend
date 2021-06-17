@@ -36,31 +36,31 @@ class CheckersLogic {
     lastPieceThatAtePositionForMultipleEating = '';
     lastPieceChosenPosition = [];
 
-    //creating initial board
-    // creatingInitialBoardLogic() {
-    //     for (let i = 0; i < 8; i++) {
-    //         for (let j = 0; j < 8; j++) {
-    //             if ((j + i) % 2) this.squareObjectsBoard[i][j] = new Square(true, false, i, j, null);
-    //             else this.squareObjectsBoard[i][j] = new Square(false, false, i, j, null);
-        
-    //             if ((i < 3) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(true, false);
-    //             else if ((i > 4) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(false, false);
-    //         }
-    //     }
-    // }
-
+    // creating initial board
     creatingInitialBoardLogic() {
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
                 if ((j + i) % 2) this.squareObjectsBoard[i][j] = new Square(true, false, i, j, null);
                 else this.squareObjectsBoard[i][j] = new Square(false, false, i, j, null);
         
-                if (j > 1) continue;
-                if ((i < 1) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(true, false);
-                else if ((i > 6) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(false, false);
+                if ((i < 3) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(true, false);
+                else if ((i > 4) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(false, false);
             }
         }
     }
+
+    // creatingInitialBoardLogic() {
+    //     for (let i = 0; i < 8; i++) {
+    //         for (let j = 0; j < 8; j++) {
+    //             if ((j + i) % 2) this.squareObjectsBoard[i][j] = new Square(true, false, i, j, null);
+    //             else this.squareObjectsBoard[i][j] = new Square(false, false, i, j, null);
+        
+    //             if (j > 1) continue;
+    //             if ((i < 1) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(true, false);
+    //             else if ((i > 6) && ((j + i) % 2 == 1)) this.squareObjectsBoard[i][j].piece = new CheckersPiece(false, false);
+    //         }
+    //     }
+    // }
     
     squareOnClick(squareRow, squareColumn) {
         let squareObj = this.squareObjectsBoard[squareRow][squareColumn];

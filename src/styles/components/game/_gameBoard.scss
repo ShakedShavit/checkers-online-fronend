@@ -25,4 +25,8 @@
 
 .second-player__board {
     transform: rotate(180deg);
+
+    img {
+        transform: rotate(180deg);
+    }
 }

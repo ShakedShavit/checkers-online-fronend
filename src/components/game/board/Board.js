@@ -155,15 +155,20 @@ const GameBoard = (props) => {
 
         if (square.isMoveOption) settingSquareClassList(squareRow, squareColumn, `green-option ${gamePieceClassName}`)
 
-        if (!!square.piece && square.piece.isBlack) {
-            props.isFirstPlayer ?
-                settingSquareClassList(squareRow, squareColumn, 'black-piece game-piece') :
-                settingSquareClassList(squareRow, squareColumn, `black-piece ${gamePieceClassName}`);
-        }
-        else if (!!square.piece && !square.piece.isBlack) {
-            props.isFirstPlayer ?
-                settingSquareClassList(squareRow, squareColumn, `red-piece ${gamePieceClassName}`) :
-                settingSquareClassList(squareRow, squareColumn, 'red-piece game-piece');
+        if (!!square.piece) {
+            let classNameList = square.piece.isKing ? 'king-piece ' : '';
+            if (square.piece.isBlack) {
+                classNameList += 'black-piece ';
+                classNameList += props.isFirstPlayer ? 'game-piece' : gamePieceClassName;
+                
+                settingSquareClassList(squareRow, squareColumn, classNameList);
+            }
+            else {
+                classNameList += 'red-piece ';
+                classNameList += props.isFirstPlayer ? gamePieceClassName : 'game-piece';
+                
+                settingSquareClassList(squareRow, squareColumn, classNameList);
+            }
         }
     }
 
