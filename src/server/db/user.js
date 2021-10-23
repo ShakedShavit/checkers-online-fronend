@@ -12,7 +12,7 @@ export const loginUserInDB = async (username, password) => {
 
         return { user: res.data.user, token: res.data.token };
     } catch (err) {
-        if (err.response.status === 400) throw new Error(err.response.data);
+        if (err.response?.status === 400) throw new Error(err.response.data);
         throw new Error(err.message);
     }
 };
@@ -26,7 +26,7 @@ export const signupUserInDB = async (username, password) => {
 
         return { user: res.data.user, token: res.data.token };
     } catch (err) {
-        if (err.response.status === 422) throw new Error(err.response.data);
+        if (err.response?.status === 422) throw new Error(err.response.data);
         throw new Error("Unable to signup. Please try again");
     }
 };

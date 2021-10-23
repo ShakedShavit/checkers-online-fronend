@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import BoardRow from "./BoardRow";
-import socket from "../../../server/socketio";
+import socket from "../../../server/socketio/socketio";
 import { GameContext } from "../../../context/gameContext";
 import { movePlayedAction, startGameAction } from "../../../actions/gameActions";
 import { updateRankAction } from "../../../actions/loginActions";

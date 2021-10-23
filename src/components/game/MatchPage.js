@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { GameContext } from "../../context/gameContext";
 import { LoginContext } from "../../context/loginContext";
-import socket from "../../server/socketio";
+import socket from "../../server/socketio/socketio";
 import GameBoard from "./board/Board";
 import PlayerBanner from "./board/PlayerBanner";
 import QuitButton from "./QuitButton";

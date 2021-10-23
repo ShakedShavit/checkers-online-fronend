@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { LoginContext } from "../../../context/loginContext";
-import socket from "../../../server/socketio";
+import socket from "../../../server/socketio/socketio";
 import Modal from "../../main/Modal";
 import { updateRankAction } from "../../../actions/loginActions";
 import PlayerBanner from "./PlayerBanner";
