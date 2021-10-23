@@ -1,14 +1,13 @@
-import React from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import GameContextProvider from '../../context/gameContext';
-import LoginContextProvider from '../../context/loginContext';
-import MatchPage from '../game/MatchPage';
-import HomePage from '../home/HomePage';
-import LoginPage from '../login/LoginPage';
-import PageNotFound from '../not-found/PageNotFound';
-import LoginRoute from './LoginRoute';
-import MatchRoute from './MatchRoute';
-import UserRoute from './UserRoute';
+import React from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import GameContextProvider from "../../context/gameContext";
+import LoginContextProvider from "../../context/loginContext";
+import MatchPage from "../game/MatchPage";
+import HomePage from "../home/HomePage";
+import LoginPage from "../login/LoginPage";
+import PageNotFound from "../not-found/PageNotFound";
+import LoginRoute from "./LoginRoute";
+import MatchRoute from "./MatchRoute";
 
 const AppRouter = () => {
     return (
@@ -27,9 +26,7 @@ const AppRouter = () => {
                 </Switch>
             </LoginContextProvider>
         </BrowserRouter>
-    )
+    );
 };
-
-// <UserRoute path="/lobby" component={GameLobby} />
 
 export default AppRouter;

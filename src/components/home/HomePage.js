@@ -1,33 +1,19 @@
-import React, { useContext } from 'react';
-import { LoginContext } from '../../context/loginContext';
-import GameLobby from '../game/lobby/GameLobby';
-import Header from '../main/Header';
-import checkersVideo from '../../videos/checkers-game.mp4';
-import checkersImg from '../../images/mobile-match.png';
+import React, { useContext } from "react";
+import { LoginContext } from "../../context/loginContext";
+import GameLobby from "../game/lobby/GameLobby";
+import Header from "../main/Header";
+import checkersVideo from "../../videos/checkers-game.mp4";
+import checkersImg from "../../images/mobile-match.png";
 
 const HomePage = () => {
     const { userDataState } = useContext(LoginContext);
-    
-    // const searchGameByRankOnClick = () => {
-    //     history.push({
-    //         pathname: '/lobby',
-    //         state: { isRankedMode: true }
-    //     });
-    // }
-
-    // const searchQuickPlayOnClick = () => {
-    //     history.push({
-    //         pathname: '/lobby',
-    //         state: { isRankedMode: false }
-    //     });
-    // }
 
     return (
         <div className="home-page">
             <Header />
-            {
-                !!userDataState.user ?
-                <GameLobby /> :
+            {!!userDataState.user ? (
+                <GameLobby />
+            ) : (
                 <div className="video-container">
                     <video className="home-page-video" controls autoplay="true" muted loop="true">
                         <source src={checkersVideo} type="video/mp4" />
@@ -37,9 +23,9 @@ const HomePage = () => {
                         <img src={checkersImg} alt="mobile-checkers-match"></img>
                     </div>
                 </div>
-            }
+            )}
         </div>
-    )
+    );
 };
 
 // {

@@ -1,14 +1,14 @@
 export const loginAction = ({ user, token }) => ({
     type: "LOGIN",
     user,
-    token
+    token,
 });
 
 export const logoutAction = () => ({
-    type: "LOGOUT"
+    type: "LOGOUT",
 });
 
 export const updateRankAction = (rank) => ({
     type: "UPDATE_RANK",
-    rank
+    rank,
 });

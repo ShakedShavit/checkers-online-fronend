@@ -1,5 +1,13 @@
 .resize__board-container {
-    $board-max-height: calc(100vh - (#{$match-players-banners-height + $match-players-banners-bottom-margin + $match-game-state-banner-height + $match-state-banner-top-margin}));
+    $board-max-height: calc(
+        100vh -
+            (
+                #{$match-players-banners-height +
+                    $match-players-banners-bottom-margin +
+                    $match-game-state-banner-height +
+                    $match-state-banner-top-margin}
+            )
+    );
     $board-max-length: calc(min(100vw, #{$board-max-height}));
 
     width: calc(min(80vw, 80vh));
@@ -12,7 +20,8 @@
     resize: both;
     overflow: hidden;
     border-radius: 15px;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
 }
 
 .game-board {

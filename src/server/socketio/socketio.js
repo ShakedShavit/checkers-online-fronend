@@ -1,13 +1,7 @@
-import openSocket, { io } from 'socket.io-client';
-const socket = io('http://localhost:5000');
+import { io } from "socket.io-client";
+const socket = io("http://localhost:5000");
 // const socket = io('http://host.docker.internal:5000');
-
-export const searchRankedMatch = () => {
-    
-}
-socket.on('onlineUsersCounter', (counter) => {
-    console.log(counter);
-})
+export default socket;
 
 // socket.emit - sending event to single connection
 // socket.on - receiving event

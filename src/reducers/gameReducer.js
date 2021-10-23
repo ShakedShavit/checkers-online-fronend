@@ -1,4 +1,4 @@
-import { CheckersLogic } from '../game/checkersLogic2';
+import { CheckersLogic } from "../game/checkersLogic";
 
 export const initialGameState = null;
 
@@ -9,7 +9,12 @@ const gameReducer = (gameState, action) => {
             game.creatingInitialBoardLogic();
             return game;
         case "MOVE_PLAYED":
-            return new CheckersLogic(!gameState.isRedPlayersTurn, action.squareObjectsBoard, action.isWin, action.isBool);
+            return new CheckersLogic(
+                !gameState.isRedPlayersTurn,
+                action.squareObjectsBoard,
+                action.isWin,
+                action.isBool
+            );
         default:
             return { ...gameState };
     }

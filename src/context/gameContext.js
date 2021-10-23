@@ -7,8 +7,8 @@ const GameContextProvider = (props) => {
     const [gameState, dispatchGameState] = useReducer(gameReducer, initialGameState);
 
     return (
-        <GameContext.Provider value={ { gameState, dispatchGameState } }>
-            { props.children }
+        <GameContext.Provider value={{ gameState, dispatchGameState }}>
+            {props.children}
         </GameContext.Provider>
     );
 };

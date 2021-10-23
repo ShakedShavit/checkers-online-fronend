@@ -1,6 +1,6 @@
 export const initialUserDataState = {
     user: null,
-    token: ''
+    token: "",
 };
 
 const loginReducer = (userData, action) => {
@@ -9,13 +9,13 @@ const loginReducer = (userData, action) => {
             console.log(action.user);
             return { user: action.user, token: action.token };
         case "LOGOUT":
-            return { user: null, token: '' };
+            return { user: null, token: "" };
         case "UPDATE_RANK": {
-            return { user: { ...userData.user, rank: action.rank }, token: userData.token }
+            return { user: { ...userData.user, rank: action.rank }, token: userData.token };
         }
         default:
             return { ...userData };
     }
-}
+};
 
 export default loginReducer;
